@@ -50,7 +50,7 @@ class ChCaptcha extends InputWidget
 
 	/** @var integer The number of hashes that have to be accepted by the mining pool.
 		Our pool uses a difficulty of 256, so your hashes goal should be a multiple of 256. */
-	public $hashas = 1024;
+	public $hashes = 1024;
 
 	/** @var boolean Optional. Whether to automatically start solving the captcha (true|false). The default is false. */
 	public $autostart = false;
@@ -84,7 +84,7 @@ class ChCaptcha extends InputWidget
             $this->sourceUrl,
             ['position' => $view::POS_END, 'async' => true, 'defer' => true]
         );
-        echo Html::hiddenInput(self::CAPTCHA_HASHES_FIELD, $this->hashas);
+        echo Html::hiddenInput(self::CAPTCHA_HASHES_FIELD, $this->hashes);
     	echo Html::tag('div', '', [ 'options' => $divOptions ]);
     }
 
@@ -94,9 +94,9 @@ class ChCaptcha extends InputWidget
     		throw new InvalidConfigException('Required `sourceUrl` param isn\'t set.');
 
     	if(!$this->siteKey)
-    		throw new InvalidConfigException('Required `sourceUrl` param isn\'t set.');
+    		throw new InvalidConfigException('Required `siteKey` param isn\'t set.');
 
-    	if(!$this->hashas)
-    		throw new InvalidConfigException('Required `hashas` param isn\'t set.');
+    	if(!$this->hashes)
+    		throw new InvalidConfigException('Required `hashes` param isn\'t set.');
     }
 }
