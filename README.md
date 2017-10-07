@@ -85,7 +85,7 @@ or
 or
 
 ```php
-<?= $form->field($model, 'reCaptcha')->widget(\vitalygallyamov\yii2\chcaptcha\ChCaptcha::className()) ?>
+<?= $form->field($model, 'captcha')->widget(\vitalygallyamov\yii2\chcaptcha\ChCaptcha::className()) ?>
 ```
 
 or simply
@@ -96,4 +96,4 @@ or simply
 
 Resources
 ---------
-* [Google reCAPTCHA](https://coinhive.com/documentation/captcha)
+* [Coinhive captcha documentation](https://coinhive.com/documentation/captcha)
