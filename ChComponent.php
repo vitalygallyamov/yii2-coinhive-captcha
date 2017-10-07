@@ -20,6 +20,9 @@ use yii\base\InvalidConfigException;
 
 class ChComponent extends Component
 {
+    /** @var string Your public Site-Key. */
+    public  $siteKey = '';
+    
     /** @var string Your Secret-Key. */
     public $secretKey = '';
 

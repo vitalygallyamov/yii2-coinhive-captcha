@@ -67,6 +67,9 @@ class ChCaptcha extends InputWidget
 
     public function run()
     {
+        if(!$this->siteKey)
+            $this->siteKey = Yii::$app->chCaptcha->siteKey;
+
         $this->checkCaptchaSettings();
 
         $divOptions = [
