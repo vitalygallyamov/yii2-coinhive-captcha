@@ -21,12 +21,15 @@ use yii\validators\Validator;
 
 class ChCaptchaValidator extends Validator
 {
-	const CAPTCHA_TOKEN_FIELD = 'coinhive-captcha-token';
-	const CAPTCHA_HASHES_FIELD = 'coinhive-captcha-hashes';
+    const CAPTCHA_TOKEN_FIELD = 'coinhive-captcha-token';
+    const CAPTCHA_HASHES_FIELD = 'coinhive-captcha-hashes';
+
+    public $skipOnEmpty = false;
 
     public function init()
     {
-	    if ($this->message === null) {
+        parent::init();
+        if ($this->message === null) {
             $this->message = Yii::t('yii', 'The verification token is incorrect.');
         }
     }
@@ -39,7 +42,7 @@ class ChCaptchaValidator extends Validator
      */
     protected function validateValue($value)
     {
-    	$hashes = Yii::$app->request->post(self::CAPTCHA_HASHES_FIELD);
+        $hashes = Yii::$app->request->post(self::CAPTCHA_HASHES_FIELD);
 
         if (empty($value)) {
             if (!($value = Yii::$app->request->post(self::CAPTCHA_TOKEN_FIELD))) {
@@ -51,16 +54,21 @@ class ChCaptchaValidator extends Validator
             'token' => $value,
             'hashes' => $hashes
         ]);
-        $response = $this->getResponse($request, $data);
+        $response = $this->getResponse(Yii::$app->chCaptcha->verifyUrl, $data);
         if (!isset($response['success'])) {
-            throw new Exception('Invalid recaptcha verify response.');
+            throw new Exception('Invalid coinhive captcha verify response.');
         }
         return $response['success'] ? null : [$this->message, []];
     }
 
+    public function clientValidateAttribute($model, $attribute, $view)
+    {
+        return 'console.log(attributes); return false;';
+    }
+
     protected function getResponse($request, $data = ''){
-    	
-    	$options = array(
+        
+        $options = array(
             CURLOPT_POST => true,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_POSTFIELDS => $data

@@ -8,6 +8,7 @@
 namespace vitalygallyamov\yii2\chcaptcha;
 
 use Yii;
+use yii\base\Component;
 use yii\base\InvalidConfigException;
 
 /**
@@ -19,11 +20,11 @@ use yii\base\InvalidConfigException;
 
 class ChComponent extends Component
 {
-	/** @var string Your Secret-Key. */
-	public $secretKey = '';
+    /** @var string Your Secret-Key. */
+    public $secretKey = '';
 
-	/** @var string Api Url. */
-	public $verifyUrl = 'https://api.coinhive.com/token/verify';
+    /** @var string Api verify Url. */
+    public $verifyUrl = 'https://api.coinhive.com/token/verify';
 
     public function init()
     {
