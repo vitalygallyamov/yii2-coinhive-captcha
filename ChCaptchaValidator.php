@@ -63,7 +63,13 @@ class ChCaptchaValidator extends Validator
 
     public function clientValidateAttribute($model, $attribute, $view)
     {
-        return 'console.log(attributes); return false;';
+        $message = $this->message;
+        $name = self::CAPTCHA_TOKEN_FIELD;
+        return <<<JS
+if ( !$("input[name='$name']").val().length ) {
+    messages.push('$message');
+}
+JS;
     }
 
     protected function getResponse($request, $data = ''){
